@@ -73,7 +73,7 @@ async function ibomma_fcm() {
         const movies = queryResult.rows;
         for (const i of data) {
             const found = movies.some(movie => movie.name === i.name);
-            if (found) {
+            if (!found) {
                 sendFCMNotification("IBomma Movie Update", i.name, i.image, '/ibomma/movie?link=' + i.link);
             }
         }
@@ -90,7 +90,7 @@ async function ibomma_fcm() {
     }
 }
 
-cron.schedule('*/5 * * * *', () => {
+cron.schedule('*/10 * * * *', () => {
 movierulz_fcm();
 ibomma_fcm();
 });
