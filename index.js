@@ -1,6 +1,9 @@
 var cron = require('node-cron');
 const axios = require('axios');
 const { Pool } = require('pg');
+const express = require("express");
+const app = express();
+const PORT = process.env.PORT || 3030;
 function sendFCMNotification(title, body, image, link) {
     const url = 'https://fcm.googleapis.com/fcm/send';
     const headers = {
@@ -66,3 +69,6 @@ async function movierulz_fcm() {
 cron.schedule('*/1 * * * *', () => {
 movierulz_fcm()
 });
+app.listen(PORT, () => {
+    console.log(`server started on port ${PORT}`);
+  });
